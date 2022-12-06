@@ -32,7 +32,6 @@ public class StepDefs {
     @When("I search for phrase")
     public void i_search_for_phrase() throws InterruptedException {
         driver.findElement(By.xpath("//input[@name='q']")).sendKeys("phrase" + Keys.ENTER);
-        Thread.sleep(2000);
     }
 
     @Then("I get list of results")
