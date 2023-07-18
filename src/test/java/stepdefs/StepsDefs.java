@@ -1,5 +1,6 @@
 package stepdefs;
 
+import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -9,34 +10,47 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class StepDefs {
+public class StepsDefs {
 
     WebDriver driver;
 
-    @Given("I go to google webpage")
-    public void i_go_to_google_webpage() {
+    @Before
+    public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
 
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--start-maximized");
+
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        driver.get("http://www.google.pl");
-        driver.findElement(By.xpath("(//button)[last()]")).click();
+        //driver.findElements(By.xpath("//IFrame[startswith(getAttribute(\"src\"),\"consent.google.com\")"));
+
+    }
+
+    @Given("I go to wiki webpage")
+    public void i_go_to_wiki_webpage() {
+        driver.get("https://www.wikipedia.org/");
+
     }
 
     @When("I search for phrase")
     public void i_search_for_phrase() throws InterruptedException {
-        driver.findElement(By.xpath("//input[@name='q']")).sendKeys("phrase" + Keys.ENTER);
+        driver.findElement(By.xpath("//input[@id='searchInput']")).sendKeys("phrase" + Keys.ENTER);
+        driver.findElement(By.xpath("(//button)[last()]")).click();
     }
 
     @Then("I get list of results")
     public void i_get_list_of_results() {
-        int results = driver.findElements(By.xpath("//div[@data-hveid]")).size();
+        int results = driver.findElements(By.xpath("//div[@class='mw-search-result-heading']")).size();
 
         Assert.assertTrue(results > 0);
     }
