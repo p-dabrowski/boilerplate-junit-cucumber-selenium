@@ -19,8 +19,9 @@ public class StepsDefs {
 
     WebDriver driver;
 
-    @Before
-    public void setUp() {
+
+    @Given("I have browser opened")
+    public void i_have_browser_opened() {
         System.setProperty("webdriver.chrome.driver", "C:\\selenium\\chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
@@ -31,9 +32,6 @@ public class StepsDefs {
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        //driver.findElements(By.xpath("//IFrame[startswith(getAttribute(\"src\"),\"consent.google.com\")"));
-
     }
 
     @Given("I go to wiki webpage")
@@ -57,6 +55,6 @@ public class StepsDefs {
 
     @After()
     public void tearDown() {
-        driver.quit();
+        //driver.quit();
     }
 }
