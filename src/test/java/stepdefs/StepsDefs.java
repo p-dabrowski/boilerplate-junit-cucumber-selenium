@@ -14,6 +14,8 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
+import static utils.EnvironmentConfigProvider.getEnvData;
+
 public class StepsDefs {
 
     WebDriver driver;
@@ -35,7 +37,9 @@ public class StepsDefs {
 
     @Given("I go to wiki webpage")
     public void i_go_to_wiki_webpage() {
-        driver.get("https://www.wikipedia.org/");
+        String url = getEnvData().getUrl();
+
+        driver.get(url);
 
     }
 
