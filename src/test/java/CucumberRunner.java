@@ -1,8 +1,6 @@
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
 
-@RunWith(Cucumber.class)
 @CucumberOptions(
         features = "src/resources/features",
         glue = {"stepdefs"},
@@ -10,5 +8,5 @@ import org.junit.runner.RunWith;
         monochrome = true
 )
 
-public class CucumberRunner {
+public class CucumberRunner extends AbstractTestNGCucumberTests {
 }
