@@ -12,8 +12,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.EnvironmentConfig;
 
 import java.time.Duration;
+
+import static utils.EnvironmentConfigProvider.getEnvData;
 
 public class StepsDefs {
 
@@ -36,7 +39,9 @@ public class StepsDefs {
 
     @Given("I go to wiki webpage")
     public void i_go_to_wiki_webpage() {
-        driver.get("https://www.wikipedia.org/");
+        String url = getEnvData().getUrl();
+
+        driver.get(url);
 
     }
 

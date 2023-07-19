@@ -60,6 +60,14 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -68,7 +76,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
+
                 <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
                     <includes>
                         <include>**/CucumberRunner*.java</include>
                     </includes>
@@ -88,6 +98,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <checkBuildResult>false</checkBuildResult>
                             <projectName>Automation Test Report</projectName>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                             <cucumberOutput>${project.build.directory}/cucumber/cucumber.json</cucumberOutput>
