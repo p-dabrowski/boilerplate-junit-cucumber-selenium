@@ -4,17 +4,17 @@ import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import utils.PageObjectProvider;
 
-import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import static utils.EnvironmentConfigProvider.getEnvData;
+import static utils.PageObjectProvider.wikiPage;
 
 public class StepsDefs {
 
@@ -32,7 +32,9 @@ public class StepsDefs {
 
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+        new PageObjectProvider(driver);
     }
 
     @Given("I go to wiki webpage")
@@ -40,18 +42,16 @@ public class StepsDefs {
         String url = getEnvData().getUrl();
 
         driver.get(url);
-
     }
 
     @When("I search for phrase")
     public void i_search_for_phrase() throws InterruptedException {
-        driver.findElement(By.xpath("//input[@id='searchInput']")).sendKeys("phrase" + Keys.ENTER);
-        driver.findElement(By.xpath("(//button)[last()]")).click();
+        wikiPage.searchForPhrase("phrase");
     }
 
     @Then("I get list of results")
     public void i_get_list_of_results() {
-        int results = driver.findElements(By.xpath("//div[@class='mw-search-result-heading']")).size();
+        int results = wikiPage.getResultsNumber();
 
         Assert.assertTrue(results > 0);
     }
