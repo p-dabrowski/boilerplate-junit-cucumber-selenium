@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
 
 import static utils.EnvironmentConfigProvider.getEnvData;
 import static utils.PageObjectProvider.wikiPage;
+import static utils.UserProvider.USER;
+
 
 public class StepsDefs {
 
@@ -45,7 +47,7 @@ public class StepsDefs {
 
     @When("I search for phrase")
     public void i_search_for_phrase() throws InterruptedException {
-        wikiPage.searchForPhrase("phrase");
+        wikiPage.searchForPhrase( "phrase" + USER.get("admin").getDescription() );
     }
 
     @Then("I get list of results")
