@@ -51,6 +51,11 @@ public class StepsDefs {
         wikiPage.searchForPhrase( "phrase" + USER.get("admin").getDescription() );
     }
 
+    @When("I search for phrase as admin")
+    public void i_search_for_phrase_as_admin() throws InterruptedException {
+        wikiPage.searchForPhrase( "I am " + USER.get("admin").getDescription() );
+    }
+
     @Then("I get list of results")
     public void i_get_list_of_results() {
         int results = wikiPage.getResultsNumber();
