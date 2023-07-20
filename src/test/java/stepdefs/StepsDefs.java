@@ -47,7 +47,7 @@ public class StepsDefs {
 
     @When("I search for phrase")
     public void i_search_for_phrase() throws InterruptedException {
-        wikiPage.searchForPhrase( "phrase" + USER.get("admin").getDescription() );
+        wikiPage.searchForPhrase( "phrase" );
     }
 
     @When("I search for phrase as admin")
