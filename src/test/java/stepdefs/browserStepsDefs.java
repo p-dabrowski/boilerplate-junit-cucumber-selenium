@@ -17,7 +17,7 @@ import static utils.PageObjectProvider.wikiPage;
 import static utils.UserProvider.USER;
 
 
-public class StepsDefs {
+public class browserStepsDefs {
 
     WebDriver driver;
 
@@ -29,6 +29,7 @@ public class StepsDefs {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-infobars");
+        options.addArguments("--disable-notifications");
         options.addArguments("--start-maximized");
 
         driver = new ChromeDriver(options);
@@ -47,7 +48,7 @@ public class StepsDefs {
 
     @When("I search for phrase")
     public void i_search_for_phrase() throws InterruptedException {
-        wikiPage.searchForPhrase( "phrase" );
+        wikiPage.searchForPhrase( "phrase " + USER.get("user1").getDescription() );
     }
 
     @When("I search for phrase as admin")
